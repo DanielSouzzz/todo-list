@@ -30,13 +30,36 @@ public class TaskService {
     public Task updateTask(Long id, Task task) {
         Task oldTask = this.getTaskById(id);
 
-        oldTask.setTitle(task.getTitle());
+        if (task.getTitle() != null) {
+            oldTask.setTitle(task.getTitle());
+        }
         oldTask.setCompleted(task.isCompleted());
 
         return this.taskRepository.save(oldTask);
     }
 
+    public String updateCompletedTask(Task task) {
+        if(updateTask(task.getId(), task).isCompleted()){
+            return "Sucessfully updated";
+        }else {
+            return "Failed";
+        }
+    }
+
     public void deleteTaskById(Long id) {
         this.taskRepository.deleteById(id);
     }
+
+//    public boolean updateCompletedTask(Task task) {
+//        Task oldTask = this.getTaskById(task.getId());
+//        oldTask.setCompleted(task.isCompleted());
+//
+//        try {
+//            this.taskRepository.save(oldTask);
+//            return true;
+//        } catch (Exception ex) {
+//            System.err.println("Error while updating task completed status" + ex.getMessage());
+//            return false;
+//        }
+//    }
 }

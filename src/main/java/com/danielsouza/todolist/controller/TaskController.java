@@ -36,6 +36,12 @@ public class TaskController {
         return taskService.updateTask(id, task);
     }
 
+    @PutMapping("/completed")
+    public String updateCompletedTask(@RequestBody Task task) {
+
+        return taskService.updateCompletedTask(task);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteTask(@PathVariable Long id) {
         taskService.deleteTaskById(id);
