@@ -1,4 +1,4 @@
-package com.danielsouza.todolist.controller;
+package backend.src.main.java.com.danielsouza.todolist.controller;
 
 import com.danielsouza.todolist.model.Task;
 import com.danielsouza.todolist.service.TaskService;

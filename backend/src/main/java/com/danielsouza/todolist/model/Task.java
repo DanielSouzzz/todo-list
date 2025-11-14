@@ -1,4 +1,4 @@
-package com.danielsouza.todolist.model;
+package backend.src.main.java.com.danielsouza.todolist.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.danielsouza.todolist;
+package backend.src.main.java.com.danielsouza.todolist;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
