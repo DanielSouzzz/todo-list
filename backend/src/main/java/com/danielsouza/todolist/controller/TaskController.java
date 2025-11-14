@@ -1,7 +1,7 @@
 package backend.src.main.java.com.danielsouza.todolist.controller;
 
-import com.danielsouza.todolist.model.Task;
-import com.danielsouza.todolist.service.TaskService;
+import backend.src.main.java.com.danielsouza.todolist.model.Task;
+import backend.src.main.java.com.danielsouza.todolist.service.TaskService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

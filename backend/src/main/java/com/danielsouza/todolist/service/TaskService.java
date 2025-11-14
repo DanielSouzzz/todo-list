@@ -1,7 +1,7 @@
-package com.danielsouza.todolist.service;
+package backend.src.main.java.com.danielsouza.todolist.service;
 
-import com.danielsouza.todolist.model.Task;
-import com.danielsouza.todolist.repository.TaskRepository;
+import backend.src.main.java.com.danielsouza.todolist.model.Task;
+import backend.src.main.java.com.danielsouza.todolist.repository.TaskRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
