@@ -49,17 +49,4 @@ public class TaskService {
     public void deleteTaskById(Long id) {
         this.taskRepository.deleteById(id);
     }
-
-//    public boolean updateCompletedTask(Task task) {
-//        Task oldTask = this.getTaskById(task.getId());
-//        oldTask.setCompleted(task.isCompleted());
-//
-//        try {
-//            this.taskRepository.save(oldTask);
-//            return true;
-//        } catch (Exception ex) {
-//            System.err.println("Error while updating task completed status" + ex.getMessage());
-//            return false;
-//        }
-//    }
 }
