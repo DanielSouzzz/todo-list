@@ -27,8 +27,8 @@ public class TaskService {
         return this.taskRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("Task with id %s not found", id)));
     }
 
-    public Task updateTask(Task task) {
-        Task oldTask = this.getTaskById(task.getId());
+    public Task updateTask(Long id, Task task) {
+        Task oldTask = this.getTaskById(id);
 
         oldTask.setTitle(task.getTitle());
         oldTask.setCompleted(task.isCompleted());
