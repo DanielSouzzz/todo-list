@@ -33,17 +33,9 @@ public class TaskService {
         if (task.getTitle() != null) {
             oldTask.setTitle(task.getTitle());
         }
-        oldTask.setCompleted(task.isCompleted());
+        oldTask.setCompleted(task.getCompleted());
 
         return this.taskRepository.save(oldTask);
-    }
-
-    public String updateCompletedTask(Task task) {
-        if(updateTask(task.getId(), task).isCompleted()){
-            return "Sucessfully updated";
-        }else {
-            return "Failed";
-        }
     }
 
     public void deleteTaskById(Long id) {

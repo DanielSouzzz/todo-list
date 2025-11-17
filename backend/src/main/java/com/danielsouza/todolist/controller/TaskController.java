@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/tasks")
@@ -51,7 +52,8 @@ public class TaskController {
     @PutMapping("/completed")
     public ResponseEntity<?> updateCompletedTask(@RequestBody Task task) {
         try {
-            return ResponseEntity.ok(taskService.updateCompletedTask(task));
+            taskService.updateTask(task.getId(), task);
+            return ResponseEntity.ok(Map.of("message", "success"));
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
