@@ -1,7 +1,9 @@
-import TaskItem from "./TaskItem";
+import TaskItem from "../TaskItem/TaskItem";
+import type { Task } from "../../types/Task";
+import styles from "./TaskList.module.css";
 
 interface Props {
-  tasks: any[];
+  tasks: Task[];
   onDelete: (id: number) => void;
   onToggle: (id: number, completed: boolean) => void;
   onEdit: (id: number, title: string) => void;
@@ -9,7 +11,7 @@ interface Props {
 
 export default function TaskList({ tasks, onDelete, onToggle, onEdit }: Props) {
   return (
-    <ul className="list-group">
+    <ul className={styles.list}>
       {tasks.map((task) => (
         <TaskItem
           key={task.id}

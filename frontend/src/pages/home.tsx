@@ -1,9 +1,9 @@
 import { useTasks } from "../hooks/useTasks";
-import TaskForm from "../componentes/TaskForm";
-import TaskList from "../componentes/TaskList";
+import TaskForm from "../componentes/taskForm/TaskForm";
+import TaskList from "../componentes/taskList/TaskList";
 
 export default function Home() {
-  const { tasks, addTask, removeTask, toggleComplete, editTask } = useTasks();
+  const { tasks, addTask, removeTask, toggleUpdate, editTask } = useTasks();
 
   return (
     <div
@@ -13,10 +13,9 @@ export default function Home() {
         alignItems: "center",
         height: "100vh",
         width: "100vw",
-        backgroundColor: "#f7f7f7", // só pra visualizar melhor
+        backgroundColor: "#f7f7f7",
       }}
     >
-      {/* CONTAINER CENTRAL */}
       <div
         style={{
           width: "100%",
@@ -34,7 +33,7 @@ export default function Home() {
         <TaskList
           tasks={tasks}
           onDelete={removeTask}
-          onToggle={toggleComplete}
+          onToggle={toggleUpdate}
           onEdit={editTask}
         />
       </div>

@@ -1,48 +1,72 @@
-import { useEffect, useState } from "react";
-import {
-  getTasks,
-  createTask,
-  deleteTask,
-  updateTask,
-  updateCompletedStatus,
-} from "../api/todoApi";
+import { useState, useEffect } from "react";
+import { getTasks, createTask, updateTask, updateCompletedStatus, deleteTask } from "../service/taskService";
+import type { Task } from "../types/Task";
 
 export function useTasks() {
   const [tasks, setTasks] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  async function load() {
-    setLoading(true);
-    const res = await getTasks();
-    setTasks(res.data);
-    setLoading(false);
-  }
+  const load = async (): Promise<void> => {
+    try {
+        setLoading(true);
+        const res = await getTasks();
+        setTasks(res);
+    } catch (error){
+        console.error("Erro ao carregar tarefas: ", error);
+    } finally {
+        setLoading(false);
+    }
+  };
 
-  async function addTask(title: string) {
-    const res = await createTask({ title });
-    setTasks((prev) => [...prev, res.data]);
-  }
+const addTask = async (task: Task): Promise<void> => {
+  try {
+    const res = await createTask({
+      title: task.title,
+      completed: task.completed,
+    });
 
-  async function removeTask(id: number) {
-    await deleteTask(id);
-    setTasks((prev) => prev.filter((t) => t.id !== id));
+    setTasks(prev => [...prev, res]);
+  } catch (error) {
+    console.error("Erro ao adicionar tarefa:", error);
   }
+};
 
-  async function toggleComplete(id: number, completed: boolean) {
-    await updateCompletedStatus({ id, completed });
-    setTasks((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, completed } : t))
+  const removeTask = async (id: number): Promise<void> => {
+    try {
+      await deleteTask(id);
+      setTasks(prev => prev.filter(t => t.id !== id));
+    } catch (error) {
+      console.error("Erro ao remover tarefa:", error);
+    }
+  };
+
+  const toggleUpdate = async (id: number, completed: boolean): Promise<void> => {
+    try {
+      await updateCompletedStatus({ id, completed });
+
+      setTasks(prev =>
+      prev.map(t => (t.id === id ? { ...t, completed } : t))
     );
+  } catch (error) {
+    console.error("Erro ao atualizar status:", error);
   }
+};
 
-  async function editTask(id: number, title: string) {
-    const res = await updateTask(id, { title });
-    setTasks((prev) => prev.map((t) => (t.id === id ? res.data : t)));
+const editTask = async (id: number, title: string): Promise<void> => {
+  try {
+    const updated = await updateTask(id, { title });
+
+    setTasks(prev =>
+      prev.map(t => (t.id === id ? updated : t))
+    );
+  } catch (error) {
+    console.error("Erro ao editar tarefa:", error);
   }
+};
 
   useEffect(() => {
     load();
   }, []);
 
-  return { tasks, loading, addTask, removeTask, toggleComplete, editTask };
-}
+  return { tasks, loading, addTask, removeTask, toggleUpdate, editTask };
+};

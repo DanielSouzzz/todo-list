@@ -1,11 +1,14 @@
+import { useState } from "react";
+import type { Task } from "../../types/Task";
+
+import styles from "./TaskItem.module.css";
+
 interface Props {
-  task: any;
+  task: Task;
   onDelete: (id: number) => void;
   onToggle: (id: number, completed: boolean) => void;
   onEdit: (id: number, title: string) => void;
 }
-
-import { useState } from "react";
 
 export default function TaskItem({ task, onDelete, onToggle, onEdit }: Props) {
   const [editing, setEditing] = useState(false);
@@ -13,22 +16,27 @@ export default function TaskItem({ task, onDelete, onToggle, onEdit }: Props) {
 
   function handleSave() {
     if (!title.trim()) return;
-    onEdit(task.id, title);
+    onEdit(task.id!, title);
     setEditing(false);
   }
 
   return (
-    <li className="list-group-item d-flex align-items-center gap-2">
-      <input
-        type="checkbox"
-        checked={task.completed}
-        onChange={() => onToggle(task.id, !task.completed)}
-      />
+    <li className={styles.item}>
+      
+      <label className={styles.checkboxWrapper}>
+        <input
+          type="checkbox"
+          className={styles.checkbox}
+          checked={task.completed}
+          onChange={() => onToggle(task.id!, !task.completed)}
+        />
+        <span className={styles.customCheckbox}></span>
+      </label>
 
       {editing ? (
         <>
           <input
-            className="form-control"
+            className={styles.inputEdit}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -37,23 +45,25 @@ export default function TaskItem({ task, onDelete, onToggle, onEdit }: Props) {
             Save
           </button>
 
-          <button className="btn btn-secondary btn-sm" onClick={() => setEditing(false)}>
+          <button
+            className="btn btn-secondary btn-sm"
+            onClick={() => setEditing(false)}
+          >
             Cancel
           </button>
         </>
       ) : (
         <>
           <span
-            className="flex-grow-1"
-            style={{
-              textDecoration: task.completed ? "line-through" : "none",
-            }}
+            className={`${styles.title} ${
+              task.completed ? styles.completed : ""
+            }`}
           >
             {task.title}
           </span>
 
           <button
-            className="btn btn-warning btn-sm"
+            className="btn btn-outline-warning btn-sm"
             onClick={() => setEditing(true)}
           >
             Edit
@@ -61,7 +71,10 @@ export default function TaskItem({ task, onDelete, onToggle, onEdit }: Props) {
         </>
       )}
 
-      <button className="btn btn-danger btn-sm" onClick={() => onDelete(task.id)}>
+      <button
+        className="btn btn-outline-danger btn-sm"
+        onClick={() => onDelete(task.id!)}
+      >
         Delete
       </button>
     </li>
